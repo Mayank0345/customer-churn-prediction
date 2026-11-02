@@ -1,0 +1,17 @@
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Downloaded dataset and generated artifacts
+data/raw/*.csv
+data/processed/*.csv
+models/*.joblib
+reports/*.json
+
+# Local editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
