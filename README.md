@@ -1,5 +1,12 @@
 # Customer Churn Prediction
 
+## Live website
+
+**[Open the Customer Churn Prediction website](https://mayank-churn-dashboard.streamlit.app/)**
+
+Hosted on Streamlit Community Cloud. Try the dashboard and make predictions without installing anything.
+
+
 A beginner-friendly Python project that uses the public IBM Telco Customer Churn
 dataset to predict whether a customer may leave. Pandas and NumPy clean the data;
 Scikit-learn trains Logistic Regression and Random Forest models; Streamlit provides
