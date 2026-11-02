@@ -47,8 +47,8 @@ st.markdown(
     [data-testid="stAppViewContainer"] label p,
     [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"],
     [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"] p,
-    [data-testid="stAppViewContainer"] button[role="tab"],
-    [data-testid="stAppViewContainer"] button[role="tab"] p {
+    [data-testid="stAppViewContainer"] [data-testid="stTab"],
+    [data-testid="stAppViewContainer"] [data-testid="stTab"] p {
         color: #172941 !important;
     }
     [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"],
@@ -56,8 +56,8 @@ st.markdown(
     [data-testid="stAppViewContainer"] .section-note {
         color: #66758a !important;
     }
-    [data-testid="stAppViewContainer"] button[role="tab"][aria-selected="false"],
-    [data-testid="stAppViewContainer"] button[role="tab"][aria-selected="false"] p {
+    [data-testid="stAppViewContainer"] [data-testid="stTab"][aria-selected="false"],
+    [data-testid="stAppViewContainer"] [data-testid="stTab"][aria-selected="false"] p {
         color: #52647a !important;
     }
     #stMain .hero h1 { color: #ffffff !important; }
