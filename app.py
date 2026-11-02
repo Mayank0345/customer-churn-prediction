@@ -29,6 +29,41 @@ st.markdown(
     .stApp {
         background: linear-gradient(180deg, #f5f8fc 0%, #fbfcfe 38%, #ffffff 100%);
     }
+    [data-testid="stAppViewContainer"] {
+        color: #172941 !important;
+        color-scheme: light;
+    }
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"],
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] p,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h1,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h2,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h3,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h4,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h5,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h6,
+    [data-testid="stAppViewContainer"] [data-testid="stWidgetLabel"],
+    [data-testid="stAppViewContainer"] [data-testid="stWidgetLabel"] p,
+    [data-testid="stAppViewContainer"] label,
+    [data-testid="stAppViewContainer"] label p,
+    [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"],
+    [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"] p,
+    [data-testid="stAppViewContainer"] button[role="tab"],
+    [data-testid="stAppViewContainer"] button[role="tab"] p {
+        color: #172941 !important;
+    }
+    [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"],
+    [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"] p,
+    [data-testid="stAppViewContainer"] .section-note {
+        color: #66758a !important;
+    }
+    [data-testid="stAppViewContainer"] button[role="tab"][aria-selected="false"],
+    [data-testid="stAppViewContainer"] button[role="tab"][aria-selected="false"] p {
+        color: #52647a !important;
+    }
+    #stMain .hero h1 { color: #ffffff !important; }
+    #stMain .hero p { color: #e0edf7 !important; }
+    #stMain .hero .hero-eyebrow { color: #b7d9ee !important; }
+    #stMain .section-note { color: #66758a !important; }
     [data-testid="stHeader"] { background: rgba(245, 248, 252, 0.88); }
     [data-testid="stSidebar"] {
         background: #101b31;
@@ -55,8 +90,8 @@ st.markdown(
         font-size: 0.75rem;
         font-weight: 700;
     }
-    .hero h1 { margin: 0; color: #ffffff; font-size: 2rem; }
-    .hero p { margin: 0.45rem 0 0 0; color: #e0edf7; }
+    .hero h1 { margin: 0; color: #ffffff !important; font-size: 2rem; }
+    .hero p { margin: 0.45rem 0 0 0; color: #e0edf7 !important; }
     .section-heading {
         color: #172941;
         font-size: 1.22rem;
@@ -72,9 +107,7 @@ st.markdown(
         box-shadow: 0 5px 16px rgba(29, 55, 88, 0.045);
     }
     label[data-testid="stMetricLabel"],
-    label[data-testid="stMetricLabel"] p {
-        color: #65748a !important;
-    }
+    label[data-testid="stMetricLabel"] p { color: #65748a !important; }
     div[data-testid="stMetricValue"] { color: #172941; }
     div.stButton > button, div[data-testid="stFormSubmitButton"] > button {
         color: white;
