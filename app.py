@@ -1,5 +1,6 @@
 """Interactive Streamlit dashboard for customer churn analysis and prediction."""
 
+import html
 from pathlib import Path
 
 import joblib
@@ -21,6 +22,53 @@ st.set_page_config(
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
+)
+
+dark_theme_styles = (
+    """
+    .stApp {
+        background: linear-gradient(180deg, #0e1117 0%, #111827 38%, #151b26 100%);
+    }
+    [data-testid="stAppViewContainer"],
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"],
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] p,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h1,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h2,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h3,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h4,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h5,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h6,
+    [data-testid="stAppViewContainer"] [data-testid="stWidgetLabel"],
+    [data-testid="stAppViewContainer"] [data-testid="stWidgetLabel"] p,
+    [data-testid="stAppViewContainer"] label,
+    [data-testid="stAppViewContainer"] label p,
+    [data-testid="stAppViewContainer"] [data-testid="stTab"] {
+        color: #f0f2f6 !important;
+    }
+    [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"],
+    [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"] p,
+    [data-testid="stAppViewContainer"] .section-note,
+    #stMain .section-note {
+        color: #aab6c5 !important;
+    }
+    [data-testid="stAppViewContainer"] [data-testid="stTab"][aria-selected="false"],
+    [data-testid="stAppViewContainer"] [data-testid="stTab"][aria-selected="false"] p {
+        color: #b6c2d1 !important;
+    }
+    [data-testid="stHeader"] { background: rgba(14, 17, 23, 0.88); }
+    div[data-testid="stMetric"],
+    .model-name-card {
+        background: #1b2533;
+        border-color: #344154;
+    }
+    label[data-testid="stMetricLabel"],
+    label[data-testid="stMetricLabel"] p,
+    .model-name-label { color: #aab6c5 !important; }
+    div[data-testid="stMetricValue"],
+    .model-name-value { color: #f0f2f6 !important; }
+    """
+    if st.context.theme.type == "dark"
+    else ""
 )
 
 st.markdown(
@@ -109,6 +157,27 @@ st.markdown(
     label[data-testid="stMetricLabel"],
     label[data-testid="stMetricLabel"] p { color: #65748a !important; }
     div[data-testid="stMetricValue"] { color: #172941; }
+    .model-name-card {
+        background: #ffffff;
+        border: 1px solid #e4eaf2;
+        border-radius: 14px;
+        padding: 0.9rem 1rem;
+        box-shadow: 0 5px 16px rgba(29, 55, 88, 0.045);
+        min-height: 7.8rem;
+        box-sizing: border-box;
+    }
+    .model-name-label {
+        color: #65748a;
+        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
+    }
+    .model-name-value {
+        color: #172941;
+        font-size: clamp(1.2rem, 2vw, 2rem);
+        line-height: 1.2;
+        overflow-wrap: anywhere;
+    }
+    /* THEME_OVERRIDES */
     div.stButton > button, div[data-testid="stFormSubmitButton"] > button {
         color: white;
         background: #1d6383;
@@ -123,7 +192,7 @@ st.markdown(
         border-color: #174e6a;
     }
     </style>
-    """,
+    """.replace("/* THEME_OVERRIDES */", dark_theme_styles),
     unsafe_allow_html=True,
 )
 
@@ -284,7 +353,13 @@ with prediction_tab:
             unsafe_allow_html=True,
         )
     with model_col:
-        st.metric("Model in use", artifact["model_name"])
+        st.markdown(
+            '<div class="model-name-card">'
+            '<div class="model-name-label">Model in use</div>'
+            f'<div class="model-name-value">{html.escape(artifact["model_name"])}</div>'
+            "</div>",
+            unsafe_allow_html=True,
+        )
 
     with st.form("customer_details"):
         st.markdown("##### Profile and account")
