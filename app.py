@@ -71,7 +71,10 @@ st.markdown(
         padding: 0.9rem 1rem;
         box-shadow: 0 5px 16px rgba(29, 55, 88, 0.045);
     }
-    div[data-testid="stMetricLabel"] { color: #65748a; }
+    label[data-testid="stMetricLabel"],
+    label[data-testid="stMetricLabel"] p {
+        color: #65748a !important;
+    }
     div[data-testid="stMetricValue"] { color: #172941; }
     div.stButton > button, div[data-testid="stFormSubmitButton"] > button {
         color: white;
