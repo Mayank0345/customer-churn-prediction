@@ -24,51 +24,35 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-dark_theme_styles = (
+st.html(
     """
-    .stApp {
-        background: linear-gradient(180deg, #0e1117 0%, #111827 38%, #151b26 100%);
-    }
-    [data-testid="stAppViewContainer"],
-    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"],
-    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] p,
-    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h1,
-    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h2,
-    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h3,
-    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h4,
-    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h5,
-    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h6,
-    [data-testid="stAppViewContainer"] [data-testid="stWidgetLabel"],
-    [data-testid="stAppViewContainer"] [data-testid="stWidgetLabel"] p,
-    [data-testid="stAppViewContainer"] label,
-    [data-testid="stAppViewContainer"] label p,
-    [data-testid="stAppViewContainer"] [data-testid="stTab"] {
-        color: #f0f2f6 !important;
-    }
-    [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"],
-    [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"] p,
-    [data-testid="stAppViewContainer"] .section-note,
-    #stMain .section-note {
-        color: #aab6c5 !important;
-    }
-    [data-testid="stAppViewContainer"] [data-testid="stTab"][aria-selected="false"],
-    [data-testid="stAppViewContainer"] [data-testid="stTab"][aria-selected="false"] p {
-        color: #b6c2d1 !important;
-    }
-    [data-testid="stHeader"] { background: rgba(14, 17, 23, 0.88); }
-    div[data-testid="stMetric"],
-    .model-name-card {
-        background: #1b2533;
-        border-color: #344154;
-    }
-    label[data-testid="stMetricLabel"],
-    label[data-testid="stMetricLabel"] p,
-    .model-name-label { color: #aab6c5 !important; }
-    div[data-testid="stMetricValue"],
-    .model-name-value { color: #f0f2f6 !important; }
-    """
-    if st.context.theme.type == "dark"
-    else ""
+    <script>
+    (() => {
+        const app = document.querySelector('[data-testid="stApp"]');
+        if (!app || app.dataset.themeObserverAttached) return;
+
+        const updateTheme = () => {
+            const channels = getComputedStyle(document.body).backgroundColor
+                .match(/\\d+/g)?.slice(0, 3).map(Number);
+            const isDark = channels && channels.reduce((sum, value) => sum + value, 0) < 384;
+            app.dataset.streamlitTheme = isDark ? "dark" : "light";
+        };
+
+        updateTheme();
+        new MutationObserver(updateTheme).observe(document.head, {
+            childList: true,
+            characterData: true,
+            subtree: true,
+        });
+        new MutationObserver(updateTheme).observe(document.body, {
+            attributes: true,
+            attributeFilter: ["class", "style"],
+        });
+        app.dataset.themeObserverAttached = "true";
+    })();
+    </script>
+    """,
+    unsafe_allow_javascript=True,
 )
 
 st.markdown(
@@ -177,7 +161,47 @@ st.markdown(
         line-height: 1.2;
         overflow-wrap: anywhere;
     }
-    /* THEME_OVERRIDES */
+    .stApp[data-streamlit-theme="dark"] {
+        background: linear-gradient(180deg, #0e1117 0%, #111827 38%, #151b26 100%);
+    }
+    .stApp[data-streamlit-theme="dark"] [data-testid="stAppViewContainer"],
+    .stApp[data-streamlit-theme="dark"] [data-testid="stMarkdownContainer"],
+    .stApp[data-streamlit-theme="dark"] [data-testid="stMarkdownContainer"] p,
+    .stApp[data-streamlit-theme="dark"] [data-testid="stMarkdownContainer"] h1,
+    .stApp[data-streamlit-theme="dark"] [data-testid="stMarkdownContainer"] h2,
+    .stApp[data-streamlit-theme="dark"] [data-testid="stMarkdownContainer"] h3,
+    .stApp[data-streamlit-theme="dark"] [data-testid="stMarkdownContainer"] h4,
+    .stApp[data-streamlit-theme="dark"] [data-testid="stMarkdownContainer"] h5,
+    .stApp[data-streamlit-theme="dark"] [data-testid="stMarkdownContainer"] h6,
+    .stApp[data-streamlit-theme="dark"] [data-testid="stWidgetLabel"],
+    .stApp[data-streamlit-theme="dark"] [data-testid="stWidgetLabel"] p,
+    .stApp[data-streamlit-theme="dark"] label,
+    .stApp[data-streamlit-theme="dark"] label p,
+    .stApp[data-streamlit-theme="dark"] [data-testid="stTab"] {
+        color: #f0f2f6 !important;
+    }
+    .stApp[data-streamlit-theme="dark"] [data-testid="stCaptionContainer"],
+    .stApp[data-streamlit-theme="dark"] [data-testid="stCaptionContainer"] p,
+    .stApp[data-streamlit-theme="dark"] .section-note {
+        color: #aab6c5 !important;
+    }
+    .stApp[data-streamlit-theme="dark"] [data-testid="stTab"][aria-selected="false"],
+    .stApp[data-streamlit-theme="dark"] [data-testid="stTab"][aria-selected="false"] p {
+        color: #b6c2d1 !important;
+    }
+    .stApp[data-streamlit-theme="dark"] [data-testid="stHeader"] {
+        background: rgba(14, 17, 23, 0.88);
+    }
+    .stApp[data-streamlit-theme="dark"] div[data-testid="stMetric"],
+    .stApp[data-streamlit-theme="dark"] .model-name-card {
+        background: #1b2533;
+        border-color: #344154;
+    }
+    .stApp[data-streamlit-theme="dark"] label[data-testid="stMetricLabel"],
+    .stApp[data-streamlit-theme="dark"] label[data-testid="stMetricLabel"] p,
+    .stApp[data-streamlit-theme="dark"] .model-name-label { color: #aab6c5 !important; }
+    .stApp[data-streamlit-theme="dark"] div[data-testid="stMetricValue"],
+    .stApp[data-streamlit-theme="dark"] .model-name-value { color: #f0f2f6 !important; }
     div.stButton > button, div[data-testid="stFormSubmitButton"] > button {
         color: white;
         background: #1d6383;
@@ -192,7 +216,7 @@ st.markdown(
         border-color: #174e6a;
     }
     </style>
-    """.replace("/* THEME_OVERRIDES */", dark_theme_styles),
+    """,
     unsafe_allow_html=True,
 )
 
