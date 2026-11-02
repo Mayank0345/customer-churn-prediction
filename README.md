@@ -154,3 +154,20 @@ the repository slug; the README title can remain **Customer Churn Prediction**.
 3. Open the repository page. GitHub renders this README and its dashboard screenshot
    automatically. The dataset, trained models, and generated reports are excluded
    from the upload by `.gitignore`; they can be recreated using the setup commands.
+
+## Deploy on Streamlit Community Cloud
+
+The app automatically downloads the dataset and trains/selects the model the first
+time it starts, so generated data and model files do not need to be committed.
+
+1. Sign in to [Streamlit Community Cloud](https://share.streamlit.io/) with GitHub
+   and authorize access to `Mayank0345/customer-churn-prediction`.
+2. Select **Create app** and choose the `main` branch of
+   `Mayank0345/customer-churn-prediction`.
+3. Set the **Main file path** to `app.py`, then select **Deploy**.
+4. Wait for the first-run dataset download and model training to finish. The app
+   logs show progress. Subsequent visits load the generated files and cached model.
+5. Share the Streamlit app URL shown after deployment. If the deployment fails,
+   check the app logs for dataset download or dependency errors.
+
+The app requires outbound access to download the public dataset on first startup.

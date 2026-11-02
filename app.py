@@ -7,6 +7,8 @@ import pandas as pd
 import streamlit as st
 
 from data_preprocessing import clean_dataset
+from evaluate import main as evaluate_models
+from train import main as train_models
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -92,7 +94,11 @@ st.markdown(
 
 @st.cache_resource
 def load_model_artifact(model_path: str) -> dict:
-    """Load and cache the locally trained model artifact."""
+    """Train the model on first deployment, then load and cache the artifact."""
+    model_file = Path(model_path)
+    if not model_file.exists():
+        train_models()
+        evaluate_models()
     return joblib.load(model_path)
 
 
@@ -108,11 +114,8 @@ def build_customer_record(values: dict[str, object]) -> pd.DataFrame:
     return pd.DataFrame([values])
 
 
-if not MODEL_PATH.exists():
-    st.error("The trained model is missing. Run `python train.py` and `python evaluate.py` first.")
-    st.stop()
-
-artifact = load_model_artifact(str(MODEL_PATH))
+with st.spinner("Preparing the churn model on first startup..." if not MODEL_PATH.exists() else "Loading churn model..."):
+    artifact = load_model_artifact(str(MODEL_PATH))
 model = artifact["model"]
 
 st.markdown(
